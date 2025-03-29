@@ -14,5 +14,8 @@ jobs:
           node-version: 20
       - run: echo 'hello world ...'
       - run: ls -la
-      - run: docker build -t adsoft/pg-restapi .
-      - run: docker images
+      - run: touch .env
+      - run: echo 'DEV_DATABASE_URL:'  >> .env
+      - run: cat .env
+    #  - run: docker build -t adsoft/pg-restapi .
+    #  - run: docker images
