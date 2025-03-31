@@ -22,7 +22,7 @@ jobs:
       - run: docker build -t adsoft/pg-restapi:${{github.sha}} .
       - run: docker images
       - run: docker run --name api -p 8080:8080 -d adsoft/pg-restapi:${{github.sha}} 
-      - run: docker docker ps
+      - run: docker ps
       - run: curl localhost:8080/api
    
 #      - name: docker login
