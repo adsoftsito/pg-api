@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: echo 'hello world ...'
+      - run: echo 'hello world ..'
       - run: ls -la
       - run: touch .env
       - run: echo 'DEV_DATABASE_URL:${{secrets.PG_CONN}}'  >> .env
