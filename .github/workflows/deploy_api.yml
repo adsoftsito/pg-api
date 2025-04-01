@@ -15,7 +15,7 @@ jobs:
       - run: echo 'hello world ..'
       - run: ls -la
       - run: touch .env
-      - run: echo 'DEV_DATABASE_URL:${{secrets.PG_CONN}}'  >> .env
+      - run: echo 'DEV_DATABASE_URL=${{secrets.PG_CONN}}'  >> .env
       - run: cat .env
       - run: npm install
       - run: npm install -g sequelize-cli@6.2.0 
