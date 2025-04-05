@@ -1,0 +1,39 @@
+name: Deploy postgresql api
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: echo 'hello world ..'
+      - run: ls -la
+      - run: touch .env
+      - run: echo 'DEV_DATABASE_URL=${{secrets.PG_CONN}}'  >> .env
+      - run: cat .env
+ #     - run: npm install
+ #     - run: npm install -g sequelize-cli@6.2.0 
+
+ #     - run: sequelize db:migrate
+      - run: docker build -t adsoft/pg-restapi:${{github.sha}} .
+      - run: docker images
+ #     - run: docker run --name api -p 8080:8080 -d adsoft/pg-restapi:${{github.sha}} 
+ #     - run: docker ps
+ #     - run: docker exec api ls -la
+
+#      - run: curl localhost:8080
+   
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        
+      - name: docker push
+        run:  docker push ${{ secrets.DOCKER_USER}}/pg-restapi:${{github.sha}}      
