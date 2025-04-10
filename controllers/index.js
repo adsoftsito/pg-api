@@ -14,6 +14,22 @@ const  createUser  = async (req,  res)  =>  {
 
 };
 
+const  deleteUser  = async (req,  res)  =>  {
+   console.log('deleting user...');
+
+   try {
+      const user = await models.User.findOne({ where: { id: req.params.id } });
+      if (user) {
+	  console.log(user);
+          await user.destroy();
+      }     
+      return res.status(200).json( { "deleted ": req.params.id });
+   }
+   catch  (error) {
+      return res.status(500).send ( { error: error.message  } );
+   }
+
+};
 
 const  getAllUsers  = async (req,  res)  =>  {
    console.log('getting users');
@@ -33,5 +49,6 @@ const  getAllUsers  = async (req,  res)  =>  {
 
 module.exports = {
   createUser,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 };
