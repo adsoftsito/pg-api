@@ -1,4 +1,4 @@
-name: Deploy postgresql api
+name: Deploy-postgresql-api
 
 on:
   push:
