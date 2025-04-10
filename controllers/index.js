@@ -31,6 +31,31 @@ const  deleteUser  = async (req,  res)  =>  {
 
 };
 
+const updateUser  = async (req,  res)  =>  {
+   console.log('updating user...');
+
+   try {
+      const user = await models.User.findOne({ where: { id: req.params.id } });
+      if (user) {
+	  console.log(user);
+          user.name = req.body.name;
+          user.email = req.body.email;
+          user.age = req.body.age;
+          user.comments = req.body.comments;
+          await user.save();
+
+      }     
+      return res.status(200).json( { "updated ": user });
+   }
+   catch  (error) {
+      return res.status(500).send ( { error: error.message  } );
+   }
+
+};
+
+
+
+
 const  getAllUsers  = async (req,  res)  =>  {
    console.log('getting users');
 
@@ -50,5 +75,6 @@ const  getAllUsers  = async (req,  res)  =>  {
 module.exports = {
   createUser,
   getAllUsers,
-  deleteUser
+  deleteUser,
+  updateUser
 };
