@@ -22,7 +22,10 @@ const  deleteUser  = async (req,  res)  =>  {
       if (user) {
 	  console.log(user);
           await user.destroy();
-      }     
+      } 
+      else {
+         return res.status(200).json( { "error ": req.params.id  +  " no existe"});
+      } 
       return res.status(200).json( { "deleted ": req.params.id });
    }
    catch  (error) {
@@ -43,8 +46,11 @@ const updateUser  = async (req,  res)  =>  {
           user.age = req.body.age;
           user.comments = req.body.comments;
           await user.save();
+      }
+      else {
+         return res.status(200).json( { "error ": req.params.id  +  " no existe"});
+      }
 
-      }     
       return res.status(200).json( { "updated ": user });
    }
    catch  (error) {
